@@ -1,1 +1,1 @@
-# lighthugger-hardware
+# hyperterm-hardware
