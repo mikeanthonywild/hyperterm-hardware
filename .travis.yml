@@ -2,5 +2,7 @@ language: generic
 sudo: required
 services:
   - docker
+notifications:
+  irc: "chat.freenode.net#hyperterm-dev"
 script:
   - make help
