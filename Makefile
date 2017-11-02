@@ -9,6 +9,7 @@ X11_DISPLAY = $(HOST_IP)$(shell ps -ef | grep "Xquartz :\d" | grep -v xinit | aw
 .PHONY: help
 help:
 	@echo "make shell - Enter development environment"
+	@echo "make test  - Run automated tests"
 
 .PHONY: build
 build: Dockerfile

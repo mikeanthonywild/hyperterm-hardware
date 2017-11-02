@@ -5,4 +5,4 @@ services:
 notifications:
   irc: "chat.freenode.net#hyperterm-dev"
 script:
-  - make help
+  - make test
