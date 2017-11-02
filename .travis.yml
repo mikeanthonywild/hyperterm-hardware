@@ -4,5 +4,7 @@ services:
   - docker
 notifications:
   irc: "chat.freenode.net#hyperterm-dev"
+before_install:
+  - make docker-test
 script:
   - make test

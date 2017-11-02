@@ -26,5 +26,9 @@ shell: build
 test:
 	@echo "Nothing to test..."
 
+.PHONY: docker-test
+docker-test: build
+	docker run -v $(CURDIR):/workspace -t $(DOCKER_IMAGE) bash -c "make test"
+
 .PHONY: all
 all: test
