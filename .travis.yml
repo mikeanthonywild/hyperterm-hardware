@@ -1,10 +1,12 @@
 language: generic
+
 sudo: required
+
 services:
   - docker
+
+script:
+  - make docker-test
+
 notifications:
   irc: "chat.freenode.net#hyperterm-dev"
-before_install:
-  - make docker-test
-script:
-  - make test
