@@ -9,4 +9,5 @@ script:
   - make docker-test
 
 notifications:
+  email: false
   irc: "chat.freenode.net#hyperterm-dev"
