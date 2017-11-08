@@ -7,7 +7,7 @@ This repo contains hardware components (schematics, PCBs, SPICE models, simulati
 
 Before you can build this project, you'll need [Git](https://git-scm.com/) and [Docker](https://www.docker.com/) installed. If you're on Windows you'll need something for running GNU Makefiles such as [WSL](https://msdn.microsoft.com/en-us/commandline/wsl/about) or [MinGW](http://mingw.org/).
 
-```
+```shell
 # Clone the project
 $ git clone git@github.com:mikeanthonywild/hyperterm-hardware.git
 $ cd hyperterm-hardware
