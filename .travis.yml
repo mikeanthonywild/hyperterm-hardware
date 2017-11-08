@@ -12,8 +12,12 @@ notifications:
 jobs:
   include:
     - stage: Test
+      env:
+        - JOB=test
       script: make docker-test
     - script: make docker-docs
+      env:
+        - JOB=docs
       deploy:
         provider: pages
         skip_cleanup: true
