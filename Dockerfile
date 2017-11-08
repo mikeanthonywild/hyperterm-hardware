@@ -33,7 +33,7 @@ RUN apt-get update -y && \
 #ngspice=26-1.1 && \
 RUN apt-get install -y \
         libreadline-dev=7.0-0ubuntu2 \
-        curl=7.52.1-4ubuntu1.3 \
+        curl=7.52.1-4ubuntu1.3 && \
     curl -L https://sourceforge.net/projects/ngspice/files/ng-spice-rework/27/ngspice-27.tar.gz/download | tar xv && \
     cd ngspice-27 && \
     ./configure --prefix=/usr/local \
