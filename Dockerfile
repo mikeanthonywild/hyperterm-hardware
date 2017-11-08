@@ -29,7 +29,8 @@ RUN apt-get update -y && \
         scipy==1.0.0
 
 # The ngspice in the Ubuntu repos doesn't include the shared lib so
-# we'll build from source for the time being
+# we'll build from source for the time being.
+# TODO: Have this built as a PPA to speed things up
 #ngspice=26-1.1 && \
 RUN apt-get install -y \
         libreadline-dev=7.0-0ubuntu2 \
