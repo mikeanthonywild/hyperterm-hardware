@@ -34,7 +34,7 @@ RUN apt-get update -y && \
 RUN apt-get install -y \
         libreadline-dev=7.0-0ubuntu2 \
         curl=7.52.1-4ubuntu1.3 \
-    curl https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/27/ngspice-27.tar.gz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fngspice%2Ffiles%2Fng-spice-rework%2F27%2F&ts=1510170029&use_mirror=netix | tar xz && \
+    curl -L https://sourceforge.net/projects/ngspice/files/ng-spice-rework/27/ngspice-27.tar.gz/download | tar xv && \
     cd ngspice-27 && \
     ./configure --prefix=/usr/local \
                 --enable-xspice \
