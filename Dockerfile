@@ -18,7 +18,7 @@ RUN apt-get update -y && \
     apt-get install -y \
         python3=3.5.3-1 \
         python3-pip=9.0.1-2 \
-        python3-tk=3.5.3-1 \
+        python3-tk=3.5.3-1ubuntu1 \
         && \
     pip3 install \
         PySpice==1.1.3 \
