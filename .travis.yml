@@ -5,9 +5,18 @@ sudo: required
 services:
   - docker
 
-script:
-  - make docker-test
-
 notifications:
   email: false
   irc: "chat.freenode.net#hyperterm-dev"
+
+jobs:
+  include:
+    - stage: Test
+      script: make docker-test
+    - script: make docker-docs
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN
+        on:
+          branch: master

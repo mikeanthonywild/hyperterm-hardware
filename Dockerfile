@@ -26,7 +26,8 @@ RUN apt-get update -y && \
         cffi==1.11.2 \
         matplotlib==2.1.0 \
         numpy==1.13.3 \
-        scipy==1.0.0
+        scipy==1.0.0 \
+        Sphinx-1.6.5
 
 # The ngspice in the Ubuntu repos doesn't include the shared lib so
 # we'll build from source for the time being.
