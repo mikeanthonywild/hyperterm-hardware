@@ -11,6 +11,8 @@ notifications:
 
 jobs:
   include:
+    # Possibly we could build Docker image as first stage, upload
+    # to Docker Hub, and then use that for rest of build.
     - stage: Test
       env:
         - JOB=test
@@ -20,6 +22,7 @@ jobs:
         - JOB=docs
       deploy:
         provider: pages
+        local_dir: docs/_build/html
         skip_cleanup: true
         github_token: $GITHUB_TOKEN
         on:
