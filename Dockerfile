@@ -7,7 +7,7 @@ ENV LANGUAGE=C.UTF-8
 
 RUN apt-get update -y && apt-get install -y \
     software-properties-common && \
-    add-apt-repository ppa:mikewild/ngspice-shared
+    apt-add-repository ppa:mikewild/ngspice-shared
 # Installing KiCad from PPA times out build for some reason.
 # Disable this and install from Ubuntu repos for time being...
 #RUN add-apt-repository ppa:js-reynaud/kicad-4
