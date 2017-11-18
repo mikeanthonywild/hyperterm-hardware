@@ -2,6 +2,9 @@
 
 DOCKER_IMAGE := hyperterm-hardware-dev
 
+# Run make with -j2 on Travis
+CI_NUM_JOBS := 2
+
 # Some special setup is required for X11 forwarding on Mac
 HOST_IP = $(shell ifconfig en0 | grep inet | awk '$$1=="inet" {print $$2}')
 X11_DISPLAY = $(HOST_IP)$(shell ps -ef | grep "Xquartz :\d" | grep -v xinit | awk '{ print $$9; }')
@@ -39,13 +42,13 @@ docs:
 docker-test: build
 	# There's no need to mount the workspace - it should be
 	# part of the build.
-	docker run -v $(CURDIR):/workspace -t $(DOCKER_IMAGE) bash -c "make test"
+	docker run -v $(CURDIR):/workspace -t $(DOCKER_IMAGE) bash -c "make -j$(CI_NUM_JOBS) test"
 
 .PHONY: docker-docs
 docker-docs: build
 	# There's no need to mount the workspace - it should be
 	# part of the build.
-	docker run -v $(CURDIR):/workspace -t $(DOCKER_IMAGE) bash -c "make docs"
+	docker run -v $(CURDIR):/workspace -t $(DOCKER_IMAGE) bash -c "make -j$(CI_NUM_JOBS) docs"
 
 .PHONY: all
 all: test
