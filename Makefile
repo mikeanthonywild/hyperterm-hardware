@@ -30,6 +30,7 @@ shell: build
 .PHONY: test
 test:
 	@echo "Nothing to test..."
+	@echo $(shell dpkg-query -L ngspice | grep 'so')
 
 .PHONY: docs
 docs:

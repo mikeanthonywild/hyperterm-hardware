@@ -17,7 +17,7 @@ RUN apt-get update -y && \
 # invalidates the cache when we add a new package.
 RUN apt-get update -y && \
     apt-get install -y \
-	ngspice=26-1.1 \
+	ngspice=26-1.1ubuntu4 \
 	kicad=4.0.5+dfsg1-4 \
         python3=3.5.3-1 \
         python3-pip=9.0.1-2 \
