@@ -1,5 +1,3 @@
-.PHONY: help all build shell
-
 DOCKER_IMAGE := hyperterm-hardware-dev
 
 # Run make with -j2 on Travis
@@ -8,6 +6,13 @@ CI_NUM_JOBS := 2
 # Some special setup is required for X11 forwarding on Mac
 HOST_IP = $(shell ifconfig en0 | grep inet | awk '$$1=="inet" {print $$2}')
 X11_DISPLAY = $(HOST_IP)$(shell ps -ef | grep "Xquartz :\d" | grep -v xinit | awk '{ print $$9; }')
+
+BUILD_DIR ?= ./build
+SCHEM_DIR := ./schematics
+SIM_DIR := ./sims
+
+SCHEMS := $(wildcard $(SCHEM_DIR)/*.sch)
+NETLISTS := $(patsubst $(SCHEM_DIR)/%.sch, $(BUILD_DIR)/%.cir, $(SCHEMS))
 
 .PHONY: help
 help:
@@ -27,10 +32,15 @@ shell: build
 	@echo "Entering development shell - press CTRL+D to exit..."
 	xhost + $(HOST_IP) && docker run --rm -i -v $(CURDIR):/workspace -e DISPLAY=$(X11_DISPLAY) -v /tmp/.X11-unix:/tmp/.X11-unix -t $(DOCKER_IMAGE) bash
 
+$(BUILD_DIR):
+	mkdir -p $(dir $@)
+
+$(BUILD_DIR)/%.cir: $(SCHEM_DIR)/%.sch | $(BUILD_DIR)
+	@echo "Need to build $@ from $<"
+
 .PHONY: test
-test:
-	@echo "Nothing to test..."
-	@echo $(shell dpkg-query -L ngspice | grep 'so')
+test: $(NETLISTS)
+	pytest sims
 
 .PHONY: docs
 docs:
@@ -50,6 +60,7 @@ docker-docs: build
 	# There's no need to mount the workspace - it should be
 	# part of the build.
 	docker run -v $(CURDIR):/workspace -t $(DOCKER_IMAGE) bash -c "make -j$(CI_NUM_JOBS) docs"
+
 
 .PHONY: all
 all: test
