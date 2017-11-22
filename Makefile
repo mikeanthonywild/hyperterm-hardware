@@ -20,13 +20,13 @@ help:
 	@echo "make test        - Run automated tests"
 	@echo "make docs        - Make documentation"
 
-.PHONY: build
+.PHONY: buildenv
 build: Dockerfile
 	$(warning First-time environment setup could take a while...)
 	docker build -t $(DOCKER_IMAGE) .
 
 .PHONY: shell
-shell: build
+shell: buildenv
 	# macOS seems to require socat for X11 forwarding to work...
 	@nc -z localhost 6000; if [ ! $$? -eq 0 ]; then echo "Nothing listening on port 6000 - socat must be running for X11 forwarding (check README)" && exit 1; fi
 	@echo "Entering development shell - press CTRL+D to exit..."
@@ -56,7 +56,7 @@ docker-test: build
 	docker run -v $(CURDIR):/workspace -t $(DOCKER_IMAGE) bash -c "make -j$(CI_NUM_JOBS) test"
 
 .PHONY: docker-docs
-docker-docs: build
+docker-docs: buildenv
 	# There's no need to mount the workspace - it should be
 	# part of the build.
 	docker run -v $(CURDIR):/workspace -t $(DOCKER_IMAGE) bash -c "make -j$(CI_NUM_JOBS) docs"
