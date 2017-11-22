@@ -24,6 +24,7 @@ RUN apt-get update -y && \
         python3-tk=3.5.3-1ubuntu1 \
         && \
     pip3 install \
+	PyTest==3.2.5 \
         PySpice==1.1.3 \
         PyYAML==3.12 \
         cffi==1.11.2 \

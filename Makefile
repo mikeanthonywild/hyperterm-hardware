@@ -21,7 +21,7 @@ help:
 	@echo "make docs        - Make documentation"
 
 .PHONY: buildenv
-build: Dockerfile
+buildenv: Dockerfile
 	$(warning First-time environment setup could take a while...)
 	docker build -t $(DOCKER_IMAGE) .
 
