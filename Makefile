@@ -50,7 +50,7 @@ docs:
 # Do we always need to build this from scratch?
 # Figure out if we can pick up pre-built image to speed things up.
 .PHONY: docker-test
-docker-test: build
+docker-test: buildenv
 	# There's no need to mount the workspace - it should be
 	# part of the build.
 	docker run -v $(CURDIR):/workspace -t $(DOCKER_IMAGE) bash -c "make -j$(CI_NUM_JOBS) test"
