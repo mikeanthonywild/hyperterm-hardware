@@ -1,6 +1,29 @@
 language: generic
+
 sudo: required
+
 services:
   - docker
-script:
-  - make help
+
+notifications:
+  email: false
+  irc: "chat.freenode.net#hyperterm-dev"
+
+jobs:
+  include:
+    # Possibly we could build Docker image as first stage, upload
+    # to Docker Hub, and then use that for rest of build.
+    - stage: Test
+      env:
+        - JOB=test
+      script: make ci-test
+    - script: make ci-docs
+      env:
+        - JOB=docs
+      deploy:
+        provider: pages
+        local_dir: docs/_build/html
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN
+        on:
+          branch: master
