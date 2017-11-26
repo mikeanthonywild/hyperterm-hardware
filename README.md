@@ -24,3 +24,8 @@ $ make test
 ```
 
 Once inside the shell, you'll have access to all of the development tools such as KiCad and PySpice. X11-forwarding is enabled in the Docker container, so any GUI apps will behave as expected.
+
+## Resources
+
+* [Contributing](CONTRIBUTING.md)
+* [Documentation](https://mikeanthonywild.github.io/hyperterm-hardware/)
