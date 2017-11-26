@@ -14,6 +14,8 @@ SIM_DIR := ./sims
 SCHEMS := $(wildcard $(SCHEM_DIR)/*.sch)
 NETLISTS := $(patsubst $(SCHEM_DIR)/%.sch, $(BUILD_DIR)/%.cir, $(SCHEMS))
 
+# TODO: make without target should build gerbers
+
 .PHONY: help
 help:
 	@echo "make shell       - Enter development environment"
@@ -42,6 +44,12 @@ $(BUILD_DIR)/%.cir: $(SCHEM_DIR)/%.sch | $(BUILD_DIR)
 test: $(NETLISTS)
 	pytest sims
 
+.PHONY: lint
+lint: Dockerfile .travis.yml
+	dockerfile_lint -f Dockerfile
+	travis lint --no-interactive .travis.yml
+	flake8 sims
+
 .PHONY: docs
 docs:
 	# Extra-strict -W converts warnings to errors
@@ -49,14 +57,14 @@ docs:
 
 # Do we always need to build this from scratch?
 # Figure out if we can pick up pre-built image to speed things up.
-.PHONY: docker-test
-docker-test: buildenv
+.PHONY: ci-test
+ci-test: buildenv
 	# There's no need to mount the workspace - it should be
 	# part of the build.
-	docker run -v $(CURDIR):/workspace -t $(DOCKER_IMAGE) bash -c "make -j$(CI_NUM_JOBS) test"
+	docker run -v $(CURDIR):/workspace -t $(DOCKER_IMAGE) bash -c "make -j$(CI_NUM_JOBS) test lint"
 
-.PHONY: docker-docs
-docker-docs: buildenv
+.PHONY: ci-docs
+ci-docs: buildenv
 	# There's no need to mount the workspace - it should be
 	# part of the build.
 	docker run -v $(CURDIR):/workspace -t $(DOCKER_IMAGE) bash -c "make -j$(CI_NUM_JOBS) docs"

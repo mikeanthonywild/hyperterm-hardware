@@ -16,8 +16,8 @@ jobs:
     - stage: Test
       env:
         - JOB=test
-      script: make docker-test
-    - script: make docker-docs
+      script: make ci-test
+    - script: make ci-docs
       env:
         - JOB=docs
       deploy:
