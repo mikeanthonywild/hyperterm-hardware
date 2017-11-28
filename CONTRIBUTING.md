@@ -37,4 +37,4 @@ TBC
 
 ### Additional Resources
 
-* [IRC channel](irc://chat.freenode.net/hyperterm-dev)
+* [IRC channel (#hyperterm-dev on Freenode)](https://webchat.freenode.net/?channels=hyperterm-dev)
