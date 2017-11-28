@@ -1,2 +1,5 @@
 # Docs
 docs/_build
+
+# Python
+__pycache__/
