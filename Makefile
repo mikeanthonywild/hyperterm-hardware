@@ -35,7 +35,7 @@ shell: buildenv
 	xhost + $(HOST_IP) && docker run --rm -i -v $(CURDIR):/workspace -e DISPLAY=$(X11_DISPLAY) -v /tmp/.X11-unix:/tmp/.X11-unix -t $(DOCKER_IMAGE) bash
 
 $(BUILD_DIR):
-	mkdir -p $(dir $@)
+	mkdir -p $@
 
 $(BUILD_DIR)/%.cir: $(SCHEM_DIR)/%.sch | $(BUILD_DIR)
 	@echo "Need to build $@ from $<"
@@ -69,6 +69,9 @@ ci-docs: buildenv
 	# part of the build.
 	docker run -v $(CURDIR):/workspace -t $(DOCKER_IMAGE) bash -c "make -j$(CI_NUM_JOBS) docs"
 
+.PHONY: clean
+clean:
+	rm -r $(BUILD_DIR)
 
 .PHONY: all
 all: test
